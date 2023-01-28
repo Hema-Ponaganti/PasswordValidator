@@ -1,6 +1,7 @@
 import Exceptions.InvalidLengthException;
-import org.junit.jupiter.api.Test;
+import Exceptions.MissingCharacterException;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -16,5 +17,17 @@ public class PasswordValidatorTest {
     void shouldThrowInvalidLengthExceptionIfPasswordLengthIsLessThanFive() {
 
         assertThrows(InvalidLengthException.class, () -> PasswordValidator.isValidPassword("pass"));
+    }
+
+    @Test
+    void shouldNotThrowExceptionIfPasswordHasALetter(){
+
+        assertDoesNotThrow(() -> PasswordValidator.isValidPassword("123a123"));
+    }
+
+    @Test
+    void shouldThrowMissingCharacterExceptionIfPasswordDoesNotHaveAtLeastOneLetter(){
+
+        assertThrows(MissingCharacterException.class, () -> PasswordValidator.isValidPassword("12345"));
     }
 }
