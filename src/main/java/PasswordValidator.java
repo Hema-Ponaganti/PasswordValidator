@@ -10,6 +10,9 @@ public class PasswordValidator {
         if (!password.matches(".*[a-zA-Z]+.*")){
             throw new MissingCharacterException("The password must contain at least 1 letter");
         }
+        if(!password.matches(".*\\d.*")){
+            throw new MissingCharacterException("The password must contain at least 1 digit");
+        }
         System.out.println("Password is valid");
     }
 }

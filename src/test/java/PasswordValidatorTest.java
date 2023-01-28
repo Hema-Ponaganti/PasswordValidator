@@ -30,4 +30,16 @@ public class PasswordValidatorTest {
 
         assertThrows(MissingCharacterException.class, () -> PasswordValidator.isValidPassword("12345"));
     }
+
+    @Test
+    void shouldNotThrowExceptionIfPasswordHasADigit(){
+
+        assertDoesNotThrow(() -> PasswordValidator.isValidPassword("password1"));
+    }
+
+    @Test
+    void shouldThrowMissingCharacterExceptionIfPasswordDoesNotHaveAtLeastOneDigit(){
+
+        assertThrows(MissingCharacterException.class, () -> PasswordValidator.isValidPassword("password"));
+    }
 }
