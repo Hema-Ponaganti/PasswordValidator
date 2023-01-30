@@ -1,8 +1,8 @@
-package validation;
+package validation.password;
 
 import Exceptions.InvalidPasswordException;
 
-public interface PasswordValidator {
+public interface Validator {
     void validate(String password) throws InvalidPasswordException;
-    void setNext(PasswordValidator validator);
+    void setNext(Validator validator);
 }

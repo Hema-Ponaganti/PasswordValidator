@@ -1,16 +1,19 @@
 import Exceptions.InvalidPasswordException;
-import validation.PasswordValidator;
-import validation.ValidatorChain;
+import validation.password.ValidatorChain;
 
 public class PasswordValidation {
-    PasswordValidator chain;
+    ValidatorChain validatorChain;
 
     public PasswordValidation() {
-        ValidatorChain validatorChain = new ValidatorChain();
-        this.chain = validatorChain.build();
+        this.validatorChain = new ValidatorChain();
     }
 
-    public void validate(String password) throws InvalidPasswordException {
-        chain.validate(password);
+    public void validate(String password, Role userRole) throws InvalidPasswordException {
+        if (userRole == Role.ADMIN) {
+            validatorChain.buildAdminChain().validate(password);
+
+        } else if (userRole == Role.USER) {
+            validatorChain.buildUserChain().validate(password);
+        }
     }
 }
