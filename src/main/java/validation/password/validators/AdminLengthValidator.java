@@ -1,15 +1,14 @@
-package validation.validators;
+package validation.password.validators;
 
 import Exceptions.InvalidPasswordException;
-import jdk.nashorn.internal.objects.annotations.Constructor;
-import validation.PasswordValidator;
+import validation.password.Validator;
 
-public class LengthValidator implements PasswordValidator {
-    private PasswordValidator next;
+public class AdminLengthValidator implements Validator {
+    private Validator next;
 
     @Override
     public void validate(String password) throws InvalidPasswordException {
-        if (password.length() < 5) {
+        if (password.length() < 8) {
             throw new InvalidPasswordException("The length of the password must be at least 5 characters");
         } else {
             next.validate(password);
@@ -17,7 +16,7 @@ public class LengthValidator implements PasswordValidator {
     }
 
     @Override
-    public void setNext(PasswordValidator validator) {
+    public void setNext(Validator validator) {
         this.next = validator;
     }
 }
