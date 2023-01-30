@@ -9,39 +9,44 @@ public class PasswordValidationTest {
     PasswordValidation passwordValidation = new PasswordValidation();
 
     @Test
-    void shouldVerifyIfLengthOfPasswordIsAtLeastFive() {
+    void shouldVerifyIfGivenUserPasswordIsValid() {
 
         assertDoesNotThrow(() -> passwordValidation.validate("pass01", Role.USER));
     }
 
-
     @Test
-    void shouldThrowInvalidLengthExceptionIfPasswordLengthIsLessThanFive() {
+    void shouldThrowInvalidPasswordExceptionIfPasswordLengthIsLessThanFive() {
 
         assertThrows(InvalidPasswordException.class, () -> passwordValidation.validate("pass", Role.USER));
     }
 
     @Test
-    void shouldNotThrowExceptionIfPasswordHasALetter() {
-
-        assertDoesNotThrow(() -> passwordValidation.validate("123a123", Role.USER));
-    }
-
-    @Test
-    void shouldThrowMissingCharacterExceptionIfPasswordDoesNotHaveAtLeastOneLetter() {
+    void shouldThrowExceptionIfPasswordDoesNotHaveAtLeastOneLetter() {
 
         assertThrows(InvalidPasswordException.class, () -> passwordValidation.validate("12345", Role.USER));
     }
 
     @Test
-    void shouldNotThrowExceptionIfPasswordHasADigit() {
+    void shouldThrowExceptionIfPasswordDoesNotHaveAtLeastOneDigit() {
 
-        assertDoesNotThrow(() -> passwordValidation.validate("password1", Role.USER));
+        assertThrows(InvalidPasswordException.class, () -> passwordValidation.validate("password", Role.USER));
     }
 
     @Test
-    void shouldThrowMissingCharacterExceptionIfPasswordDoesNotHaveAtLeastOneDigit() {
+    void shouldVerifyIfGivenAdminPasswordIsValid() {
 
-        assertThrows(InvalidPasswordException.class, () -> passwordValidation.validate("password", Role.USER));
+        assertDoesNotThrow(() -> passwordValidation.validate("password@01", Role.ADMIN));
+    }
+
+    @Test
+    void shouldThrowInvalidLengthExceptionIfAdminPasswordLengthIsLessThanNine() {
+
+        assertThrows(InvalidPasswordException.class, () -> passwordValidation.validate("password", Role.ADMIN));
+    }
+
+    @Test
+    void shouldThrowExceptionIfPasswordDoesNotHaveAtLeastOneSpecialCharacter() {
+
+        assertThrows(InvalidPasswordException.class, () -> passwordValidation.validate("password01", Role.ADMIN));
     }
 }

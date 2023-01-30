@@ -8,8 +8,8 @@ public class AdminLengthValidator implements Validator {
 
     @Override
     public void validate(String password) throws InvalidPasswordException {
-        if (password.length() < 8) {
-            throw new InvalidPasswordException("The length of the password must be at least 5 characters");
+        if (password.length() < 9) {
+            throw new InvalidPasswordException("Admin passwords must be at least 9 characters in length");
         } else {
             next.validate(password);
         }
