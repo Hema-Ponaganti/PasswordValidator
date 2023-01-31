@@ -2,18 +2,20 @@ package validation.password.validators;
 
 import Exceptions.InvalidPasswordException;
 import validation.password.Validator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MissingSpecialCharacterValidator implements Validator {
     private Validator next;
 
     @Override
-    public void validate(String password) throws InvalidPasswordException {
+    public List<InvalidPasswordException> validate(String password) {
+        List<InvalidPasswordException> exceptions = new ArrayList<>();
+
         if(!password.matches(".*[!@#$%^&*+=-_].*")){
-            throw new InvalidPasswordException("Admin passwords must contain at least 1 special character");
+            exceptions.add(new InvalidPasswordException("Admin passwords must contain at least 1 special character"));
         }
-        else {
-            System.out.println("Password is valid");
-        }
+        return exceptions;
     }
 
     @Override

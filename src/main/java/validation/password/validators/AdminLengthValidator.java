@@ -3,16 +3,22 @@ package validation.password.validators;
 import Exceptions.InvalidPasswordException;
 import validation.password.Validator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AdminLengthValidator implements Validator {
     private Validator next;
 
+
     @Override
-    public void validate(String password) throws InvalidPasswordException {
+    public List<InvalidPasswordException> validate(String password) {
+        List<InvalidPasswordException> exceptions = new ArrayList<>();
+
         if (password.length() < 9) {
-            throw new InvalidPasswordException("Admin passwords must be at least 9 characters in length");
-        } else {
-            next.validate(password);
+            exceptions.add(new InvalidPasswordException("Admin passwords must be at least 9 characters in length"));
         }
+        exceptions.addAll(next.validate(password));
+        return exceptions;
     }
 
     @Override
