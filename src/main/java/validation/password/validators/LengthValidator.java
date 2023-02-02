@@ -8,12 +8,17 @@ import java.util.List;
 
 public class LengthValidator implements Validator {
     private Validator next;
+    private int length;
+
+    public LengthValidator(int length){
+        this.length = length;
+    }
 
     @Override
     public List<InvalidPasswordException> validate(String password) {
         List<InvalidPasswordException> exceptions = new ArrayList<>();
 
-        if (password.length() < 5) {
+        if (password.length() < length) {
             exceptions.add(new InvalidPasswordException("The length of the password must be at least 5 characters"));
         }
         exceptions.addAll(next.validate(password));
